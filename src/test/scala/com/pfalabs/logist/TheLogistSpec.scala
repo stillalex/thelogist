@@ -17,4 +17,15 @@ class TheLogistSpec extends FlatSpec with Matchers {
 
   }
 
+  "TheLogist" should "parse" in {
+
+    val t1 = LogLine("26.02.2015 10:16:44.891 *INFO* [OsgiInstallerImpl] org.apache.sling.audit.osgi.installer Installed configuration").asInstanceOf[RegLine].t
+    t1.level should be("info")
+    t1.thread should be("OsgiInstallerImpl")
+
+    val t2 = LogLine("22.02.2015 03:03:28.256 *INFO* [FelixStartLevel] org.apache.felix.jaas Registering LoginModule class [org.apache.jackrabbit.oak.security.authentication.token.TokenLoginModule] from Bundleorg.apache.jackrabbit.oak-core [85]").asInstanceOf[RegLine].t
+    t2.level should be("info")
+    t2.thread should be("FelixStartLevel")
+
+  }
 }

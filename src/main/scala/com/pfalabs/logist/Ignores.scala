@@ -20,7 +20,7 @@ trait Ignores {
       if (ign.contains("*")) {
         return true;
       }
-      ign.foreach { i ⇒ if (t.what.contains(i)) { return true } }
+      ign.foreach { i ⇒ if (t.info.contains(i)) { return true } }
     }
     val p2 = ConfigUtil.joinPath("logist", "ignore", t.level.toLowerCase(), "*")
     if (cfg.hasPath(p2)) {
@@ -28,7 +28,7 @@ trait Ignores {
       if (ign.contains("*")) {
         return true;
       }
-      ign.foreach { i ⇒ if (t.what.contains(i)) { return true } }
+      ign.foreach { i ⇒ if (t.info.contains(i)) { return true } }
     }
 
     return false

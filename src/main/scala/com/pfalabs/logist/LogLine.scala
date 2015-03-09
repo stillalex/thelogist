@@ -4,11 +4,11 @@ trait LogLine {}
 
 object LogLine {
 
-  val linePattern = """(\d*.\d*.\d*) (\d*:\d*:\d*.\d*) \*(.*)\* \[(.*)\] (.*)""".r
+  val linePattern = """(\d*.\d*.\d*) (\d*:\d*:\d*.\d*) \*(.*)\* \[(.*?)\] (.*)""".r
 
   def parse(l: String): Option[Tokens] = l match {
-    case linePattern(a, b, c, d, e) ⇒ Some(Tokens(a, b, c, d, e))
-    case _                          ⇒ None
+    case linePattern(dmy, ts, level, thread, info) ⇒ Some(Tokens(dmy, ts, level.toLowerCase(), thread, info))
+    case _                                         ⇒ None
   }
 
   def apply(l: String, errs: List[String] = List()): LogLine = parse(l) match {
@@ -18,8 +18,8 @@ object LogLine {
   }
 }
 
-case class Tokens(dmy: String, ts: String, level: String, thread: String, what: String) {
-  override def toString(): String = s"""$dmy,$ts,$level,thread,"$what""""
+case class Tokens(dmy: String, ts: String, level: String, thread: String, info: String) {
+  override def toString(): String = s"""$dmy,$ts,$level,$thread,"$info""""
 }
 case class RegLine(t: Tokens) extends LogLine {
   override def toString(): String = t.toString()

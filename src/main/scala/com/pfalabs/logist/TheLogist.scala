@@ -18,18 +18,14 @@ object TheLogist extends Ignores with CLIRunner {
   val DMYPattern = """(\d\d).(\d\d).(\d\d\d\d) """.r
 
   def parse(f: String, cfg: Config = ConfigFactory.empty) = {
-    val t = System.currentTimeMillis()
     println("TheLogist")
     println("  config " + printIgnores(cfg))
-    println("  log " + f)
-
+    println("  parse log " + f)
     extract(f, cfg);
-
-    val dur = System.currentTimeMillis() - t
-    println(s"finished in $dur ms.")
   }
 
   private def extract(f: String, cfg: Config = ConfigFactory.empty) = {
+    val start = System.currentTimeMillis()
     // execution context
     import system.dispatcher
 
@@ -86,7 +82,7 @@ object TheLogist extends Ignores with CLIRunner {
                 .onComplete(_ ⇒ Try(output.close()))
           }
         case ("error", lineFlow) ⇒
-          val output = new PrintWriter(new FileOutputStream("log-errors.txt"), true)
+          val output = new PrintWriter(new FileOutputStream("log-merge-error.txt"), true)
           lineFlow
             .map(l ⇒ l.asInstanceOf[ErrLine])
             .groupBy(l ⇒ l.traceAsKey())
@@ -113,6 +109,8 @@ object TheLogist extends Ignores with CLIRunner {
     res.onComplete { _ ⇒
       Try(logFile.close())
       system.shutdown()
+      val dur = System.currentTimeMillis() - start
+      println(s"finished in $dur ms.")
     }
   }
 
