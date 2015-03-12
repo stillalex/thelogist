@@ -8,7 +8,7 @@ _Output_: thelogist will generate an output file for each log level is encounter
 
 How to build
 ------------
-Running _mvn package_ from the project's root will produce a distribution archive (`thelogist-*-dist.zip`) containing everything you need
+Running `mvn package` from the project's root will produce a distribution archive (`thelogist-*-dist.zip`) containing everything you need
 
 ```bash
 $ mvn package
@@ -22,7 +22,7 @@ Or look under the [releases tab](https://github.com/alexparvulescu/thelogist/rel
 How to run
 ----------
 ```bash
-    $ java -jar thelogist-*.jar --path error.log [--config thelogist.conf --name test]
+$ java -jar thelogist-*.jar --path error.log [--config thelogist.conf --name test]
 ```
 
 *Options*
@@ -63,19 +63,19 @@ java.lang.NullPointerException: null
 
 the output will look like the following:
 
-'log-info.txt'
+* `log-info.txt`
 ```bash
 01.01.2015,09:00:00.000,info,TestThread,"org.apache.sling.audit.osgi.installer Installed configuration"
 ```
-Note: the _OsgiInstallerImpl_ log was ignored via the config.
+_Note: the `OsgiInstallerImpl` log was ignored via the config._
 
 
-'log-warn.txt'
+* `log-warn.txt`
 ```bash
 01.01.2015,09:00:00.000,warn,MapEntries Update,"org.apache.jackrabbit.oak.plugins.index.property.strategy.ContentMirrorStoreStrategy Traversed 132000 nodes using index sling:vanityPath with filter Filter(query=SELECT sling:vanityPath, sling:redirect, sling:redirectStatus FROM sling:VanityPath WHERE sling:vanityPath IS NOT NULL ORDER BY sling:vanityOrder DESC, path=*, property=[sling:vanityPath=])"
 ```
 
-'log-merge-error.txt'
+* `log-merge-error.txt`
 ```bash
 [2] java.lang.NullPointerException: null
     at org.apache.sling.discovery.impl.common.heartbeat.HeartbeatHandler.issueClusterLocalHeartbeat(HeartbeatHandler.java:295)
