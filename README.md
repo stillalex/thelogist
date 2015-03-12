@@ -19,6 +19,11 @@ $ .... target/thelogist-0.0.1-SNAPSHOT.jar
 
 Or look under the [releases tab](https://github.com/alexparvulescu/thelogist/releases) on github.
 
+We use [Travis CI](http://travis-ci.org/) to verify the build: [![Build Status](https://travis-ci.org/alexparvulescu/thelogist.svg?branch=master)](https://travis-ci.org/alexparvulescu/thelogist)
+
+We use [Coveralls](https://coveralls.io/r/twitter/scalding) for code coverage results: [![Coverage Status](https://coveralls.io/repos/alexparvulescu/thelogist/badge.svg)](https://coveralls.io/r/alexparvulescu/thelogist)
+
+
 How to run
 ----------
 ```bash
@@ -80,3 +85,10 @@ _Note: the `OsgiInstallerImpl` log was ignored via the config._
 [2] java.lang.NullPointerException: null
     at org.apache.sling.discovery.impl.common.heartbeat.HeartbeatHandler.issueClusterLocalHeartbeat(HeartbeatHandler.java:295)
 ```
+
+License
+-------
+
+Copyright 2015 Alex Parvulescu.
+
+Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
