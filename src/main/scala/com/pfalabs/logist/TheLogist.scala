@@ -17,14 +17,17 @@ object TheLogist extends Ignores with CLIRunner {
 
   val DMYPattern = """(\d\d).(\d\d).(\d\d\d\d) """.r
 
-  def parse(f: String, cfg: Config = ConfigFactory.empty) = {
+  def parse(f: String, name: Option[String] = None, cfg: Config = ConfigFactory.empty) = {
     println("TheLogist")
     println("  config " + printIgnores(cfg))
     println("  parse log " + f)
-    extract(f, cfg);
+    if (name.isDefined) {
+      println("  name " + name.get)
+    }
+    extract(f, name, cfg);
   }
 
-  private def extract(f: String, cfg: Config = ConfigFactory.empty) = {
+  private def extract(f: String, name: Option[String], cfg: Config = ConfigFactory.empty) = {
     val start = System.currentTimeMillis()
     // execution context
     import system.dispatcher
@@ -76,13 +79,13 @@ object TheLogist extends Ignores with CLIRunner {
           }
           .runForeach {
             case (level, lineFlow) ⇒
-              val output = new PrintWriter(new FileOutputStream(s"log-$level.txt"), true)
+              val output = new PrintWriter(new FileOutputStream("log-" + level + asFileNameToken(name) + ".txt"), true)
               lineFlow
                 .runForeach(line ⇒ output.println(line))
                 .onComplete(_ ⇒ Try(output.close()))
           }
         case ("error", lineFlow) ⇒
-          val output = new PrintWriter(new FileOutputStream("log-merge-error.txt"), true)
+          val output = new PrintWriter(new FileOutputStream("log-merge-error" + asFileNameToken(name) + ".txt"), true)
           lineFlow
             .map(l ⇒ l.asInstanceOf[ErrLine])
             .groupBy(l ⇒ l.traceAsKey())
@@ -112,6 +115,12 @@ object TheLogist extends Ignores with CLIRunner {
       val dur = System.currentTimeMillis() - start
       println(s"finished in $dur ms.")
     }
+  }
+
+  private def asFileNameToken(name: Option[String]): String = if (name.isDefined) {
+    "-" + name.get
+  } else {
+    ""
   }
 
   def main(args: Array[String]): Unit = run(args)

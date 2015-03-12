@@ -102,12 +102,6 @@
 
         <dependency>
             <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-parsing-experimental_2.11</artifactId>
-            <version>1.0-M3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-stream-experimental_2.11</artifactId>
             <version>1.0-M3</version>
         </dependency>
@@ -128,8 +122,8 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.7</version>
-
         </dependency>
+
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>

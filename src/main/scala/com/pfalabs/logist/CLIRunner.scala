@@ -8,22 +8,21 @@ import java.io.File
 trait CLIRunner {
 
   val usage = """
-    Usage: java -jar thelogist-*.jar --path src/test/resources/test-error.log --config src/test/resources/test-logist.conf
+    Usage: java -jar thelogist-*.jar --path error.log [--config thelogist.conf --name test]
   """
 
   def runExample(args: Array[String]) {
     val cfg: Config = ConfigFactory.load("test-logist")
     val path = "src/test/resources/test-error.log"
-    TheLogist.parse(path, cfg)
+    TheLogist.parse(path, None, cfg)
   }
 
   def run(args: Array[String]) {
-    if (args.length != 2 && args.length != 4) {
+    if (args.length == 0) {
       println(usage)
       return
     }
     val arglist = extractParams(args.grouped(2), Map())
-
     if (arglist.get("path").isEmpty) {
       println(usage)
       return
@@ -32,10 +31,10 @@ trait CLIRunner {
 
     val cfg: Config = arglist.get("config") match {
       case Some(c) ⇒ ConfigFactory.parseFile(new File(c))
-      case _       ⇒ ConfigFactory.load("logist")
+      case _       ⇒ ConfigFactory.load("thelogist")
     }
 
-    TheLogist.parse(path, cfg)
+    TheLogist.parse(path, arglist.get("name"), cfg)
 
   }
 
