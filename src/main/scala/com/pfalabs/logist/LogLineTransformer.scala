@@ -1,11 +1,9 @@
 package com.pfalabs.logist
 
-import akka.stream.stage.StatefulStage
-import akka.util.ByteString
 import scala.annotation.tailrec
-import akka.stream.stage.Context
-import akka.stream.stage.Directive
-import akka.stream.stage.PushPullStage
+
+import akka.stream.stage.{ Context, PushPullStage, StatefulStage, SyncDirective }
+import akka.util.ByteString
 
 trait LogLineTransformer {
 
@@ -23,7 +21,7 @@ trait LogLineTransformer {
       private var nextPossibleMatch = 0
 
       def initial = new State {
-        override def onPush(chunk: ByteString, ctx: Context[String]): Directive = {
+        override def onPush(chunk: ByteString, ctx: Context[String]): SyncDirective = {
           buffer ++= chunk
           if (buffer.size > maximumLineBytes)
             ctx.fail(new IllegalStateException(s"Read ${buffer.size} bytes " +

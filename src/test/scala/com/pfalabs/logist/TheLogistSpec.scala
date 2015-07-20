@@ -35,4 +35,15 @@ class TheLogistSpec extends FlatSpec with Matchers {
     t3.info should be("com.pfalabs.logist.TheLogist Unable to parse logs, path=/bin/custom/hc")
 
   }
+
+  "TheLogist" should "output" in {
+
+    val emt = ConfigFactory.load("doesn-t-exist")
+    TheLogist.getGroupByKey("whatever", emt) should be("whatever")
+
+    val cfg = ConfigFactory.load("test-logist")
+    TheLogist.getGroupByKey("info", cfg) should be("info")
+    TheLogist.getGroupByKey("debug", cfg) should be("info")
+
+  }
 }

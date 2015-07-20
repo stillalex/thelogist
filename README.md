@@ -43,6 +43,20 @@ logist.ignore {
 }
 ```
 
+Merging output logs
+-------------------
+ Usually each log level has its own dedicated file. This behavior is configurable via the config file, so one could map multiple log levels into a single output file
+
+```bash
+logist.output {
+    info = "info"        # "info" level will to into the 'info' file
+    debug = "info"       # "debug" level will also go into the 'info' file
+}
+```
+
+Output file naming is based on the following recipe: `"log-" + (output mapping from level to fragment) + [name param] + ".txt"`, so you are free to use whatever fragment name you feel is representative.
+
+
 Examples
 --------
 

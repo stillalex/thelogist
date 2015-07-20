@@ -1,9 +1,8 @@
 package com.pfalabs.logist
 
-import com.typesafe.config.ConfigUtil
-import com.typesafe.config.Config
-import scala.collection.JavaConversions._
-import com.typesafe.config.ConfigRenderOptions
+import scala.collection.JavaConversions.asScalaBuffer
+
+import com.typesafe.config.{ Config, ConfigRenderOptions, ConfigUtil }
 
 trait Ignores {
 
@@ -34,12 +33,11 @@ trait Ignores {
     return false
   }
 
-  def printIgnores(cfg: Config): String = {
-    val p1 = ConfigUtil.joinPath("logist", "ignore")
-    if (cfg.hasPath(p1)) {
-      cfg.atPath(p1).root().render(ConfigRenderOptions.concise().setFormatted(true))
+  def printConfigs(cfg: Config): String = {
+    if (cfg.hasPath("logist")) {
+      cfg.atPath("logist").root().render(ConfigRenderOptions.concise().setFormatted(true))
     } else {
-      "no ignores"
+      "using default configuration"
     }
   }
 

@@ -1,17 +1,15 @@
 package com.pfalabs.logist
 
 import java.io.{ FileOutputStream, PrintWriter }
-
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.util.{ Failure, Success, Try }
-
 import com.pfalabs.logist.ErrLine.keyAsTrace
 import com.typesafe.config.{ Config, ConfigFactory }
-
 import akka.actor.ActorSystem
-import akka.stream.ActorFlowMaterializer
+import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Source
+import com.typesafe.config.ConfigUtil
 
 object TheLogist extends Ignores with CLIRunner {
 
@@ -19,8 +17,8 @@ object TheLogist extends Ignores with CLIRunner {
 
   def parse(f: String, name: Option[String] = None, cfg: Config = ConfigFactory.empty) = {
     println("TheLogist")
-    println("  config " + printIgnores(cfg))
-    println("  parse log " + f)
+    println("  config " + printConfigs(cfg))
+    println("  parsing log " + f)
     if (name.isDefined) {
       println("  name " + name.get)
     }
@@ -33,7 +31,7 @@ object TheLogist extends Ignores with CLIRunner {
     import system.dispatcher
 
     implicit val system = ActorSystem("TheLogist")
-    implicit val matr = ActorFlowMaterializer()
+    implicit val matr = ActorMaterializer()
 
     val logFile = io.Source.fromFile(f, "utf-8")
 
@@ -74,7 +72,7 @@ object TheLogist extends Ignores with CLIRunner {
       .runForeach {
         case ("regular", lineFlow) ⇒ lineFlow
           .groupBy {
-            case RegLine(t) ⇒ t.level
+            case RegLine(t) ⇒ getGroupByKey(t.level, cfg)
             case _          ⇒ "unknown"
           }
           .runForeach {
@@ -114,6 +112,20 @@ object TheLogist extends Ignores with CLIRunner {
       system.shutdown()
       val dur = System.currentTimeMillis() - start
       println(s"finished in $dur ms.")
+    }
+  }
+
+  /**
+   * Given a level, provides the final group by key for a specific log line.
+   * Usually a log level would end up in its own file name, but we can now merge 2 or more logs into the same config file based on configs
+   */
+  def getGroupByKey(level: String, cfg: Config): String = {
+    val o = ConfigUtil.joinPath("logist", "output", level.toLowerCase())
+    if (cfg.hasPath(o)) {
+      cfg.getString(o)
+    } else {
+      // no config defined, goes into the same log file
+      level
     }
   }
 

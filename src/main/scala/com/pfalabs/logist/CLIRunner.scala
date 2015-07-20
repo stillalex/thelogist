@@ -1,9 +1,10 @@
 package com.pfalabs.logist
 
-import com.typesafe.config.ConfigFactory
-import scala.annotation.tailrec
-import com.typesafe.config.Config
 import java.io.File
+
+import scala.annotation.tailrec
+
+import com.typesafe.config.{ Config, ConfigFactory }
 
 trait CLIRunner {
 
