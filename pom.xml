@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.pfalabs</groupId>
     <artifactId>thelogist</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
     <name>The Logist</name>
     <description>Log parser and error extractor for Granite &amp; CQ (and other sling apps) error.log file</description>
