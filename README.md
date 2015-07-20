@@ -21,7 +21,7 @@ Or look under the [releases tab](https://github.com/alexparvulescu/thelogist/rel
 
 We use [Travis CI](http://travis-ci.org/) to verify the build: [![Build Status](https://travis-ci.org/alexparvulescu/thelogist.svg?branch=master)](https://travis-ci.org/alexparvulescu/thelogist)
 
-We use [Coveralls](https://coveralls.io/r/twitter/scalding) for code coverage results: [![Coverage Status](https://coveralls.io/repos/alexparvulescu/thelogist/badge.svg)](https://coveralls.io/r/alexparvulescu/thelogist)
+We use [Coveralls](https://coveralls.io/r/alexparvulescu/thelogist) for code coverage results: [![Coverage Status](https://coveralls.io/repos/alexparvulescu/thelogist/badge.svg)](https://coveralls.io/r/alexparvulescu/thelogist)
 
 
 How to run
