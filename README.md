@@ -17,11 +17,11 @@ $ .... target/thelogist-0.0.1-SNAPSHOT-dist.zip
 $ .... target/thelogist-0.0.1-SNAPSHOT.jar
 ```
 
-Or look under the [releases tab](https://github.com/alexparvulescu/thelogist/releases) on github.
+Or look under the [releases tab](../../releases) on github.
 
-We use [Travis CI](http://travis-ci.org/) to verify the build: [![Build Status](https://travis-ci.org/alexparvulescu/thelogist.svg?branch=master)](https://travis-ci.org/alexparvulescu/thelogist)
+We use [Travis CI](http://travis-ci.org/) to verify the build: [![Build Status](https://travis-ci.org/stillalex/thelogist.svg?branch=master)](https://travis-ci.org/stillalex/thelogist)
 
-We use [Coveralls](https://coveralls.io/r/alexparvulescu/thelogist) for code coverage results: [![Coverage Status](https://coveralls.io/repos/alexparvulescu/thelogist/badge.svg)](https://coveralls.io/r/alexparvulescu/thelogist)
+We use [Coveralls](https://coveralls.io/r/stillalex/thelogist) for code coverage results: [![Coverage Status](https://coveralls.io/repos/stillalex/thelogist/badge.svg)](https://coveralls.io/r/stillalex/thelogist)
 
 
 How to run
